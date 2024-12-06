@@ -125,10 +125,8 @@ public class Profiles extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Regex untuk memfilter karakter yang tidak diperbolehkan
                 String filteredText = s.toString().replaceAll("[^a-zA-Z0-9 ,.\\-]", "");
 
-                // Jika teks berubah setelah difilter, perbarui EditText
                 if (!s.toString().equals(filteredText)) {
                     alamatText.setText(filteredText);
                     int cursorPosition = filteredText.length();
@@ -143,10 +141,10 @@ public class Profiles extends Fragment {
             }
         });
         notelpText = view.findViewById(R.id.edt_notelp);
-        if (notelpText.getText().equals("(Kosong)")){
-            notelpText.setError("Harap isi Nomor Telepon");
-        }else{
+        if (notelpText.equals("")){
             notelpText.setError(null);
+        }else{
+            notelpText.setError("Harap isi Nomor Telepon");
         }
 
         notelpText.addTextChangedListener(new TextWatcher() {
