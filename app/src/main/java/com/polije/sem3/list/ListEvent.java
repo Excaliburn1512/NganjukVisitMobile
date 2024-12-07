@@ -49,7 +49,7 @@ public class ListEvent extends AppCompatActivity {
         String profilePhoto = util.getUserPhoto();
         imgUser = findViewById(R.id.userImg);
         txtNama = findViewById(R.id.userfullname);
-        txtNama.setText("Halo! " + namaUser);
+        txtNama.setText("Halo," + namaUser + "!");
         Glide.with(this).load(Config.API_IMAGE + profilePhoto).into(imgUser);
 
         btnNotify = findViewById(R.id.btnNotif);

@@ -48,6 +48,7 @@
         android:layout_marginHorizontal="20dp"
         android:text="Untuk menggunakan Tiket,pindai kode QR di atas"
         android:textSize="15dp"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:fontFamily="@font/ralewayreguler"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

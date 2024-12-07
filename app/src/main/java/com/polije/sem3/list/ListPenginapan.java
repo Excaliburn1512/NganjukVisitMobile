@@ -52,7 +52,7 @@ public class ListPenginapan extends AppCompatActivity {
         imgUser = findViewById(R.id.userImg);
 
         Glide.with(this).load(Config.API_IMAGE + profilePhoto).into(imgUser);
-        txtNama.setText("Halo! " + namaPengguna);
+        txtNama.setText("Halo," + namaPengguna + "!");
 
         // searching
         txtSearch = findViewById(R.id.searchbox);

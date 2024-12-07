@@ -50,7 +50,7 @@ public class ListKuliner extends AppCompatActivity {
         imgUser = findViewById(R.id.userImg);
 
         Glide.with(this).load(Config.API_IMAGE + profilePhoto).into(imgUser);
-        txtNama.setText("Halo! " + namaPengguna);
+        txtNama.setText("Halo," + namaPengguna + "!");
 
         // link to notify
         btnNotify = findViewById(R.id.btnNotif);

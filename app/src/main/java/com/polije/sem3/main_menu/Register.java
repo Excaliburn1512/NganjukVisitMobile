@@ -87,7 +87,7 @@ public class Register extends AppCompatActivity {
                     email.setText(input.replaceAll("[^a-zA-Z0-9._@+-]", ""));
                     int cursorPosition = input.length();
                     if (cursorPosition <= email.getText().length()) {
-                        email.setSelection(cursorPosition); // Mengatur seleksi pada posisi yang valid
+                        email.setSelection(cursorPosition);
                     }
                 }
             }

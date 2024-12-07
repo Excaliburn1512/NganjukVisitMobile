@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.polije.sem3.R;
 import com.polije.sem3.model.UserModel;
 import com.polije.sem3.network.BaseResponse;
@@ -83,6 +84,7 @@ public class Profiles extends Fragment {
 
         // Initialize UI components
         progressDialog = new ProgressDialog(requireContext());
+        progressDialog.setIcon(R.drawable.newlogo_nganjukvisit);
         progressDialog.setTitle("Mengubah profil...");
         progressDialog.setMessage("Harap Tunggu");
         progressDialog.setCancelable(false);
@@ -142,9 +144,9 @@ public class Profiles extends Fragment {
         });
         notelpText = view.findViewById(R.id.edt_notelp);
         if (notelpText.equals("")){
-            notelpText.setError(null);
-        }else{
             notelpText.setError("Harap isi Nomor Telepon");
+        }else{
+            notelpText.setError(null);
         }
 
         notelpText.addTextChangedListener(new TextWatcher() {
@@ -430,7 +432,8 @@ public class Profiles extends Fragment {
                 selectedBitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), uri);
                 Log.e("selectedBitmap", "onActivityResult: "+selectedBitmap );
                 Picasso.get().load(uri).into(imgThumb);
-//                Glide.with(requireContext()).load(uri).circleCrop().into(imgThumb);
+//                Glide.with(requireContext()).load(selectedBitmap).circleCrop().diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(imgThumb);
+                progressDialog.show();
                 uploadImage();
             } catch (IOException e) {
                 e.printStackTrace();
