@@ -55,9 +55,9 @@
                     android:textSize="20sp"/>
                 <ImageView
                     android:id="@+id/btnNotif"
-                    android:layout_width="33dp"
-                    android:layout_height="33dp"
-                    android:background="@drawable/ic_baseline_notifications_24"/>
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_circle_notifications"/>
             </LinearLayout>
 
             <LinearLayout
@@ -74,9 +74,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:text="Where do you want to explore today ?"
+                    android:text="Siap eksplor ke mana hari ini? Yuk mulai petualangan seru!"
                     android:textStyle="bold"
-                    android:fontFamily="@font/ralewaybold"
+                    android:fontFamily="@font/urbanistbold"
                     android:textSize="30dp"
                     android:textColor="@color/black"/>
 
@@ -104,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
                     android:text="Pilih Kategori"
-                    android:fontFamily="@font/ralewaybold"
+                    android:fontFamily="@font/ralewaysemibold"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="20sp"/>
@@ -310,7 +310,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Wisata Populer"
-                        android:fontFamily="@font/ralewaybold"
+                        android:fontFamily="@font/ralewaysemibold"
                         android:layout_weight="1"
                         android:textStyle="bold"
                         android:textColor="@color/black"
@@ -374,7 +374,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Kuliner Populer"
-                        android:fontFamily="@font/ralewaybold"
+                        android:fontFamily="@font/ralewaysemibold"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="20sp"
@@ -438,7 +438,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Rekomendasi Penginapan"
-                        android:fontFamily="@font/ralewaybold"
+                        android:fontFamily="@font/ralewaysemibold"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="20sp"
@@ -501,7 +501,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Event"
-                        android:fontFamily="@font/ralewaybold"
+                        android:fontFamily="@font/ralewaysemibold"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="20sp"

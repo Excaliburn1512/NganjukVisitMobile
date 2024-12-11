@@ -4,8 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgwelcomescreen"
+    android:background="@drawable/pagewelcom"
     tools:context=".main_menu.WelcomeScreen">
+
+    <!-- TextView pertama -->
+    <TextView
+        android:id="@+id/tvWelcomeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WELCOME TO"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:fontFamily="@font/ralewaybold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="130dp" />
+
+    <!-- TextView kedua -->
+    <TextView
+        android:id="@+id/textwelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NGANJUK"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/ralewaybold"
+        app:layout_constraintTop_toBottomOf="@id/tvWelcomeTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="0dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

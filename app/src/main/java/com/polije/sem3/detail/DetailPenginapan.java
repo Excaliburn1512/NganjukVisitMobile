@@ -124,8 +124,7 @@ public class DetailPenginapan extends AppCompatActivity implements MapListener, 
                     binding.namaPenginapan.setText(penginapanData.getJudulPenginapan());
                     binding.alamatPenginapan.setText(penginapanData.getLokasi());
                     binding.deskripsiPenginapan.setText(penginapanData.getDeskripsi());
-                    binding.notelp.setText(penginapanData.getTelepon().isEmpty() ? "Tidak Diketahui" : penginapanData.getTelepon());
-                    /*Glide.with(DetailPenginapan.this).load(Client.IMG_DATA + penginapanData.getGambar()).into(binding.penginapanImage);*/
+                    binding.notelp.setText(penginapanData.getTelepon().isEmpty() ? "Tidak Diketahui" : penginapanData.getTelepon().replace("62","0").trim());
                     String gambarString = penginapanData.getGambar();
                     List<String> imageUrls = new ArrayList<>();
                     if (gambarString.contains(",")) {

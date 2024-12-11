@@ -26,9 +26,9 @@
 
             <Button
                 android:id="@+id/backButtonDetail"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/backbutton"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/baseline_arrow_back_ios_new_24"
                 android:backgroundTint="@color/greyfont"
                 android:contentDescription="backbutton"
                 />

@@ -52,6 +52,8 @@ public class FavoritKulinerModelAdapter extends RecyclerView.Adapter<FavoritKuli
                 .load(Client.IMG_DATA + getFirstImage(dataList.get(position).getGambar()))
                 .into(holder.imgView);
         holder.imgFavs.setImageResource(R.drawable.favorite_button_danger);
+        holder.imgFavs.setTag("favorited");
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +43,7 @@ import retrofit2.Response;
 public class Book extends Fragment implements WebSocketMessageListener {
 
     private RecyclerView recyclerView;
+    private ConstraintLayout animator;
     private TiketModelAdapter tiketAdapter;
     private LinearLayout layoutSearch;
     private EditText searchBox;
@@ -51,7 +53,7 @@ public class Book extends Fragment implements WebSocketMessageListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_book, container, false);
-
+        animator = view.findViewById(R.id.animatortiket1);
         recyclerView = view.findViewById(R.id.recyclerviewListPenginapan);
         layoutSearch = view.findViewById(R.id.layoutSearch);
         searchBox = view.findViewById(R.id.searchbox);
@@ -76,7 +78,7 @@ public class Book extends Fragment implements WebSocketMessageListener {
 
     private Bitmap generateQRCode(String data) throws WriterException {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        int size = 120; // Ukuran QR code
+        int size = 120;
         BitMatrix bitMatrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, size, size);
         Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565);
 
@@ -93,34 +95,38 @@ public class Book extends Fragment implements WebSocketMessageListener {
             public void onResponse(Call<TiketResponse> call, Response<TiketResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<TiketModel> tiketList = response.body().getData();
-                    // Pengecekan status dan generate QR code
-                    for (TiketModel tiket : tiketList) {
-                        if ("berhasil".equalsIgnoreCase(tiket.getStatus())) {
-                            try {
-                                // Membuat data JSON untuk QR Code
-                                JSONObject qrData = new JSONObject();
-                                qrData.put("id_detail_tiket", tiket.getId_detail_tiket());
-                                qrData.put("nama_wisata", tiket.getNama_wisata());
-                                qrData.put("nama_pemesan", tiket.getNama_pemesan());
-                                qrData.put("jumlah_pengunjung", tiket.getJumlah());
-                                qrData.put("tanggal", tiket.getTanggal());
-                                qrData.put("status", tiket.getStatus());
+                    if (tiketList.isEmpty()) {
+                        animator.setVisibility(View.VISIBLE);
+                    } else {
+                        animator.setVisibility(View.GONE);
+                        for (TiketModel tiket : tiketList) {
+                            if ("berhasil".equalsIgnoreCase(tiket.getStatus())) {
+                                try {
+                                    JSONObject qrData = new JSONObject();
+                                    qrData.put("id_detail_tiket", tiket.getId_detail_tiket());
+                                    qrData.put("nama_wisata", tiket.getNama_wisata());
+                                    qrData.put("nama_pemesan", tiket.getNama_pemesan());
+                                    qrData.put("jumlah_pengunjung", tiket.getJumlah());
+                                    qrData.put("tanggal", tiket.getTanggal());
+                                    qrData.put("status", tiket.getStatus());
 
-                                // Menghasilkan QR code
-                                String dataQR = qrData.toString(); // Mengubah JSON menjadi string
-                                Bitmap bitmap = generateQRCode(dataQR);
+                                    // Menghasilkan QR code
+                                    String dataQR = qrData.toString(); // Mengubah JSON menjadi string
+                                    Bitmap bitmap = generateQRCode(dataQR);
 
-                                // Menyimpan QR code di dalam tiket (bisa disesuaikan)
-                                tiket.setQrCode(bitmap);
+                                    // Menyimpan QR code di dalam tiket (bisa disesuaikan)
+                                    tiket.setQrCode(bitmap);
 
-                            } catch (JSONException | WriterException e) {
-                                e.printStackTrace();
+                                } catch (JSONException | WriterException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
+                        tiketAdapter = new TiketModelAdapter(getContext(), tiketList);
+                        recyclerView.setAdapter(tiketAdapter);
                     }
-                    tiketAdapter = new TiketModelAdapter(getContext(), tiketList);
-                    recyclerView.setAdapter(tiketAdapter);
                 } else {
+                    animator.setVisibility(View.VISIBLE);
                     requireActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Gagal memuat tiket", Toast.LENGTH_SHORT).show());
                 }
             }

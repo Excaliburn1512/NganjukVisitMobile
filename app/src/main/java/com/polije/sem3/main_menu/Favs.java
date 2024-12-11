@@ -4,18 +4,21 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.airbnb.lottie.LottieDrawable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.polije.sem3.R;
 import com.polije.sem3.detail.DetailInformasi;
 import com.polije.sem3.detail.DetailKuliner;
@@ -49,6 +52,7 @@ public class Favs extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -94,38 +98,29 @@ public class Favs extends Fragment {
     private ArrayList<FavoritPenginapanModel> PenginapanArrayList;
     private ArrayList<FavoritKulinerModel> KulinerArrayList;
     private TextView favsWisataJudul, favsPenginapanJudul, favsKulinerJudul;
-    private TextView emptyTextView;
     private LinearLayout contentLayout;
+    private ConstraintLayout manualLayout;
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View rootView = inflater.inflate(R.layout.fragment_favs, container, false);
+        View rootView1 = inflater.inflate(R.layout.animatorfavorit, container, false);
 
         UsersUtil util = new UsersUtil(requireContext());
         String idUser = util.getId();
         Log.d("FavsFragment", "User ID: " + idUser);
-
-        // inisialisasi layout
         contentLayout = rootView.findViewById(R.id.content);
+        manualLayout = rootView1.findViewById(R.id.animatorfavorit1);
+        contentLayout.addView(manualLayout);
 
-        // inisiasialisasi emptytextview untuk data kosong
-        emptyTextView = new TextView(requireContext());
-        emptyTextView.setText("Belum Ada yang Disukai");
-        emptyTextView.setTextColor(getResources().getColor(R.color.black));
-        emptyTextView.setTextSize(30);
-        emptyTextView.setGravity(Gravity.CENTER);
-        emptyTextView.setPadding(0, 400, 0, 100);
-        contentLayout.addView(emptyTextView);
 
-        // inisialisasi judul setiap favorit
         favsWisataJudul = rootView.findViewById(R.id.favsWisataJudul);
         favsPenginapanJudul = rootView.findViewById(R.id.favsPenginapanJudul);
         favsKulinerJudul = rootView.findViewById(R.id.favsKulinerJudul);
 
-        // menampilkan recview wisata favorit
         recyclerView = rootView.findViewById(R.id.recyclerviewListWisataFavorit);
 
         Client.getInstance().favwisata("tampilkan","wisata",idUser).enqueue(new Callback<FavoritWisataResponse>() {
@@ -144,7 +139,7 @@ public class Favs extends Fragment {
                             }
                         });
                         recyclerView.setAdapter(adapter);
-                        emptyTextView.setVisibility(View.GONE);
+                        manualLayout.setVisibility(View.GONE);
                     } else {
                         favsWisataJudul.setVisibility(View.GONE);
                     }
@@ -180,7 +175,7 @@ public class Favs extends Fragment {
                             }
                         });
                         recyclerView2.setAdapter(adapter2);
-                        emptyTextView.setVisibility(View.GONE);
+                        manualLayout.setVisibility(View.GONE);
                     } else {
                         favsPenginapanJudul.setVisibility(View.GONE);
                     }
@@ -217,7 +212,7 @@ public class Favs extends Fragment {
                             }
                         });
                         recyclerView3.setAdapter(adapter3);
-                        emptyTextView.setVisibility(View.GONE);
+                        manualLayout.setVisibility(View.GONE);
                     } else {
                         favsKulinerJudul.setVisibility(View.GONE);
                     }

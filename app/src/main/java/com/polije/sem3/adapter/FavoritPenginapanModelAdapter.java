@@ -52,6 +52,8 @@ public class FavoritPenginapanModelAdapter extends RecyclerView.Adapter<FavoritP
         Glide.with(holder.itemView.getContext())
                 .load(Client.IMG_DATA + getFirstImage(dataList.get(position).getGambar()))
                 .into(holder.imgView);
+        holder.imgButton.setTag("favorited");
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

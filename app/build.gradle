@@ -184,5 +184,8 @@ dependencies {
     //zoomQR
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'com.airbnb.android:lottie:6.6.1'
+
+
 
 }

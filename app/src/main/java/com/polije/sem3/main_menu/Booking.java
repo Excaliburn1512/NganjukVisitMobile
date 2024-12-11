@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import okhttp3.WebSocket;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.polije.sem3.R;
 import com.polije.sem3.model.BookingModel;
 import com.polije.sem3.response.BookingResponse;
@@ -221,8 +223,8 @@ public class Booking extends AppCompatActivity {
                             // Menentukan action yang ingin dipanggil (misalnya: 'pesan')
                             String action = "pesan";
                             Intent serviceIntent = new Intent(Booking.this, WebSocketService.class);
-                            startService(serviceIntent);  // Menjalankan Service untuk WebSocket
-                            // Mendapatkan instance RetrofitEndPoint
+                            serviceIntent.putExtra("webSocketType", "type1");
+                            startService(serviceIntent);
                             RetrofitEndPoint api = Client.getInstance();
 
                             // Mengirim permintaan ke server
@@ -326,7 +328,8 @@ public class Booking extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_payment, null);
         builder.setView(dialogView);
-
+        ImageView view1 = dialogView.findViewById(R.id.lottieAnimationView);
+        Glide.with(this).asGif().load(R.drawable.payment).into(view1);
         AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         Button btnBackHome = dialogView.findViewById(R.id.btn_back_home);

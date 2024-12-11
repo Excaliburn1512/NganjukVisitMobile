@@ -26,7 +26,7 @@
                     android:layout_height="match_parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/layoutGambarf"
-                    android:background="@drawable/rumahmakansample"
+                    android:background="@drawable/ic_no_image_24"
                     android:scaleType="centerCrop"
                     />
 

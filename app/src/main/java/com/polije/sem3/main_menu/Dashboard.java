@@ -3,6 +3,7 @@ package com.polije.sem3.main_menu;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ public class Dashboard extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_STORAGE = 2;
 
+    @SuppressLint("UseCompatLoadingForColorStateLists")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,23 +34,13 @@ public class Dashboard extends AppCompatActivity {
 
         getFragmentToLoad = getIntent().getStringExtra("fragmentToLoad");
 
-//        if (
-//                ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
-//                        != PackageManager.PERMISSION_GRANTED
-//        ) {
-//
-//            ActivityCompat.requestPermissions(this,
-//                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
-//                    PERMISSION_REQUEST_STORAGE);
-//            Toast.makeText(this, "permission needed", Toast.LENGTH_SHORT).show();
-//        }
-
-
         Dashboard.this.getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame, new Home())
                 .commit();
         Intent serviceIntent = new Intent(Dashboard.this, WebSocketService.class);
+        serviceIntent.putExtra("webSocketType", "type2");
         startService(serviceIntent);
+
         btnView = findViewById(R.id.bottomNavigationView);
         btnView.setBackground(null);
         btnView.setItemIconTintList(

@@ -53,6 +53,7 @@ public class FavoritWisataModelAdapter extends RecyclerView.Adapter<FavoritWisat
         Glide.with(holder.itemView.getContext())
                 .load(Client.IMG_DATA + getFirstImage(dataList.get(position).getGambar()))
                 .into(holder.imgView);
+        holder.imgButton.setTag("favorited");
 
         holder.imgButton.setOnClickListener(new View.OnClickListener() {
             @Override

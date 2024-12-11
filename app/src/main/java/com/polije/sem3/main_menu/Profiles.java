@@ -3,6 +3,7 @@ package com.polije.sem3.main_menu;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -66,7 +67,7 @@ public class Profiles extends Fragment {
     private Uri uri;
     private ImageView imgThumb;
     private EditText editNamaText, emailText, alamatText, notelpText;
-    private ProgressDialog progressDialog;
+    private Dialog progressDialog;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     public Profiles() {
@@ -81,14 +82,9 @@ public class Profiles extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // Initialize UI components
-        progressDialog = new ProgressDialog(requireContext());
-        progressDialog.setIcon(R.drawable.newlogo_nganjukvisit);
-        progressDialog.setTitle("Mengubah profil...");
-        progressDialog.setMessage("Harap Tunggu");
+        progressDialog = new Dialog(requireContext());
         progressDialog.setCancelable(false);
-
+        progressDialog.setContentView(R.layout.progreesdialog);
         imgThumb = view.findViewById(R.id.img_thumb1);
         Button btnLogout = view.findViewById(R.id.btn_logout);
         TextView btnChoose = view.findViewById(R.id.choosePictures);
@@ -157,9 +153,8 @@ public class Profiles extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 String currentText = charSequence.toString();
-                String filteredText = currentText.replaceAll("[^0-9]", ""); // Menghapus karakter selain angka
+                String filteredText = currentText.replaceAll("[^0-9]", "");
 
-                // Jika teks yang dimasukkan tidak sesuai, set ulang EditText dengan teks yang telah difilter
                 if (!currentText.equals(filteredText)) {
                     notelpText.setText(filteredText);
                     int cursorPosition = filteredText.length();
@@ -212,7 +207,7 @@ public class Profiles extends Fragment {
         btnChoose.setOnClickListener(v -> openGallery());
 
         btnUpload2.setOnClickListener(v -> {
-            progressDialog.show();
+
                 updateProfiles(util.getUserPhoto());
                 Log.d("Profiles", "Just Update String Information");
 
@@ -251,6 +246,7 @@ public class Profiles extends Fragment {
             swipeRefreshLayout.setRefreshing(false);
         }, 2000);
     }
+
 
 
 

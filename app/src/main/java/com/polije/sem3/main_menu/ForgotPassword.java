@@ -3,6 +3,7 @@ package com.polije.sem3.main_menu;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 
+import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.polije.sem3.R;
@@ -32,6 +34,7 @@ public class ForgotPassword extends AppCompatActivity {
     private EditText txtEmail;
     private String emailUser;
     private ProgressDialog progressDialog;
+    private ImageView airplane;
 
     // model data
     private Verification verification;
@@ -48,6 +51,7 @@ public class ForgotPassword extends AppCompatActivity {
         progressDialog.setCancelable(false);
 
         // Bind views
+        airplane = findViewById(R.id.airplane);
         btnBack = findViewById(R.id.backButton);
         btnSubmit = findViewById(R.id.btnSubmitOTP);
         txtEmail = findViewById(R.id.txtemails);
@@ -73,11 +77,10 @@ public class ForgotPassword extends AppCompatActivity {
                     Toast.makeText(ForgotPassword.this, "Email tidak boleh kosong", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                // Show progress dialog
-                progressDialog.show();
-
-                // Send OTP request to server
+                ObjectAnimator rotateAnimator = ObjectAnimator.ofFloat(airplane, "rotation", 0f, 360f);
+                rotateAnimator.setDuration(500);
+                rotateAnimator.start();
+                animasipesawat();
                 Client.getInstance().sendmailotp(emailUser).enqueue(new Callback<VerificationResponse>() {
                     @Override
                     public void onResponse(Call<VerificationResponse> call, Response<VerificationResponse> response) {
@@ -99,19 +102,16 @@ public class ForgotPassword extends AppCompatActivity {
                             intent.putExtra(OtpVerification.END_MILLIS, endMillis);
                             startActivity(intent);
                         } else {
+                            animasiKembali();
                             Toast.makeText(ForgotPassword.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<VerificationResponse> call, Throwable t) {
-                        progressDialog.dismiss();
-
-                        // Log error untuk debugging
+                        animasiKembali();
                         Log.e("ForgotPassword", "Error: " + t.getMessage(), t);
-
                         runOnUiThread(() -> {
-                            // Berikan pesan error yang lebih informatif
                             if (t instanceof SocketTimeoutException) {
                                 Toast.makeText(ForgotPassword.this, "Koneksi timeout. Periksa koneksi internet Anda.", Toast.LENGTH_SHORT).show();
                             } else if (t instanceof UnknownHostException) {
@@ -121,10 +121,26 @@ public class ForgotPassword extends AppCompatActivity {
                             }
                         });
                     }
-
-
                 });
             }
         });
+    }
+    public void animasipesawat(){
+        ObjectAnimator translateXAnimator = ObjectAnimator.ofFloat(airplane, "translationX", 0f, 1000f);
+        translateXAnimator.setDuration(3000);ObjectAnimator translateYAnimator = ObjectAnimator.ofFloat(airplane, "translationY", 0f, -1000f);
+        translateYAnimator.setDuration(3000);
+        translateXAnimator.start();
+        translateYAnimator.start();
+    }
+    private void animasiKembali() {
+        ObjectAnimator rotateBackAnimator = ObjectAnimator.ofFloat(airplane, "rotation", 360f, 0f);
+        rotateBackAnimator.setDuration(500);
+        ObjectAnimator translateBackX = ObjectAnimator.ofFloat(airplane, "translationX", airplane.getTranslationX(), 0f);
+        translateBackX.setDuration(3000);
+        ObjectAnimator translateBackY = ObjectAnimator.ofFloat(airplane, "translationY", airplane.getTranslationY(), 0f);
+        translateBackY.setDuration(3000);
+        rotateBackAnimator.start();
+        translateBackX.start();
+        translateBackY.start();
     }
 }

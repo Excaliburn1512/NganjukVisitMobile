@@ -44,6 +44,7 @@ public class WebSocketService extends Service {
     private String text1;
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        String webSocketType = intent.getStringExtra("webSocketType");
         uiHandler = new Handler(Looper.getMainLooper());
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         pingHandler = new Handler(Looper.getMainLooper());
@@ -51,8 +52,13 @@ public class WebSocketService extends Service {
 
         createNotificationChannel();
 
-        setupWebSocket1();  // WebSocket pertama (8080)
-        setupWebSocket2();  // WebSocket kedua (8081)
+        if ("type1".equals(webSocketType)) {
+            // Start WebSocket 1
+            setupWebSocket1();
+        } else if ("type2".equals(webSocketType)) {
+            // Start WebSocket 2
+            setupWebSocket2();
+        }
         return START_STICKY;
     }
 
